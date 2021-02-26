@@ -28,12 +28,15 @@ class board:
             Returns True if occupied.
 
         """
+      #  print(position[0])
+      #  print(self.grid[position[0]][position[1]])
         if self.grid[position[0]][position[1]]==0:
             return False
         else:
             return True
         
     def move_piece(self, old_position, new_position):
+     #   print(new_position)
         if self.check_space(new_position)==True:
             kill_id=self.grid[new_position[0]][new_position[1]]
         else:
@@ -42,6 +45,9 @@ class board:
         self.grid[new_position[0]][new_position[1]]=self.grid[old_position[0]][old_position[1]]
         self.grid[old_position[0]][old_position[1]]=0
         return kill_id
+    def setup(self, position,_id):
+        self.grid[position[0]][position[1]]=_id
+    
 if __name__=="__main__":       
     x=board()
     x.grid[0][0]=5
