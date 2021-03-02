@@ -1,5 +1,6 @@
 import pieces as pcs
 from board import board
+from bot import bot
 """
 -------------------------
 White      |  Black
@@ -22,6 +23,7 @@ White      |  Black
 -------------------------
 """
 table=board()
+player1=bot("white")
 
 white_king=pcs.king("white", [0,4])
 back_white=[pcs.rook("white", [0,0]), pcs.rook("white", [0,7])]+[pcs.knight("white", [0,1]), pcs.knight("white", [0,6])]+[pcs.bishop("white", [0,2]), pcs.bishop("white", [0,5])]+[pcs.queen("white", [0,3])]
@@ -33,10 +35,22 @@ back_black=[pcs.rook("black", [7,0]), pcs.rook("black", [7,7])]+[pcs.knight("bla
 black_pawns=[pcs.pawn("black", [6,y]) for y in range(8)]
 black=[black_king]+back_black+black_pawns
 
+pcs_dict={str(i._id):i for i in white+black}
+
 for i in white:
     table.setup(i.position, i._id)
 for i in black:
     table.setup(i.position, i._id)
-print(table.grid)
+#print(table.grid)
 
- 
+#------------------------------------------------------------------------------
+turn=0
+while white_king.living and black_king.living:
+    turn+=1
+    player1.move(table, pcs_dict)
+    
+    break
+if white_king.living:
+    print("White wins - {} turns".format(turn))
+else:
+    print("Black wins - {} turns".format(turn))
