@@ -1,5 +1,5 @@
 from itertools import count, product
-from numpy import array, concatenate, delete, unique
+from numpy import array, concatenate, delete
 class piece:
     _id=count(1) #id 0 represents an empty space
     max_range=8 
@@ -21,6 +21,10 @@ class piece:
         allowed_options=delete(options,deletion_indices,0)
      #   unique_allowed_options=unique([tuple(row) for row in allowed_options], axis=0)
         return allowed_options
+    
+    def kill(self):
+        self.living=False
+        self.position=None
     
 class king(piece):
     def __init__(self, colour, position, living=True):
